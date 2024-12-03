@@ -1,4 +1,4 @@
-module alu(
+module M_ALU_CONTROLLER(
     input logic [5:0] funct,        // Function code
     input logic [1:0] aluop,        // ALU operation selector
     output logic [2:0] alucontrol   // ALU control signals
