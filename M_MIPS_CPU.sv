@@ -1,9 +1,9 @@
 `include "M_MEM_ASYNC.v"
 `include "M_MEM_SYNC.sv"
-`include "M_CONTROLLER.v"
-`include "M_ALU_CONTROLLER.v"
-`include "M_IF_ID_REG.v"
-`include "M_ID_EX_REG.v"
+`include "M_CONTROLLER.sv"
+`include "M_ALU_CONTROLLER.sv"
+`include "M_IF_ID_REG.sv"
+`include "M_ID_EX_REG.sv"
 `include "M_EX_MEM_REG.sv"
 `include "M_MEM_WB_REG.sv"
 `include "M_PC_REG.v"
@@ -16,7 +16,7 @@
 `include "M_MUX_3_DONTCARE.sv"
 `include "M_ALU.v"
 `include "M_HAZARD_UNIT.sv"
-`include "M_EQUAL.v"
+`include "M_EQUAL.sv"
 
 module M_MIPS_CPU(
     input logic clk, 
@@ -179,9 +179,9 @@ module M_MIPS_CPU(
 
     // Display branch prediction output for debugging
     always @(pcsrcD, branch) begin
-        if (pcsrcD === 1'b1) 
+        if (pcsrcD == 1'b1) 
             $display("Branch is taken! Squashing instruction %h", instr);
-        else if ((pcsrcD !== 1'b1) && (branch === 1'b1)) 
+        else if ((pcsrcD != 1'b1) && (branch == 1'b1)) 
             $display("Branch not taken");
     end
 
@@ -251,12 +251,12 @@ module M_MIPS_CPU(
     M_MUX_2_DONTCARE writedataEQMUX(writedata, aluoutM, forwardBD, writedataEQ);
 
     // Display stall and flush signals when they change and have valid values
-    always @(stallF or stallD or flushE) begin
-        if (^stallF !== 1'bx && ^stallD !== 1'bx && ^flushE !== 1'bx) begin
+    always @(stallF , stallD , flushE) begin
+       
             $display("stallF:%b", stallF);
             $display("stallD:%b", stallD);
             $display("flushE:%b", flushE);
-        end
+        
     end
 
     // Display forwarding information for srcaE when forwardAE changes
