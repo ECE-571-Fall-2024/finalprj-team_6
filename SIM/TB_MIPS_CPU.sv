@@ -43,10 +43,10 @@ module TB_MIPS_CPU;
     end
 
     // Dump variables for waveform analysis (optional, uncomment if needed)
-    // initial begin
-    //     $dumpfile("MIPS_DUT.vcd");
-    //     $dumpvars(0, MIPS_DUT);
-    // end
+     initial begin
+         $dumpfile("MIPS_DUT.vcd");
+         $dumpvars(0, MIPS_DUT);
+     end
 
     // Monitor memory writes (optional, uncomment if needed)
     // always @(posedge clk) begin
